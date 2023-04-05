@@ -1,4 +1,8 @@
-# Capstone Project Apprenticeship
+# Income Predictor for the Mexican Context
+## Using Decision Classification Trees
+
+![México](Images/MexicoSkyline.jpg)
+
 
 This repository contains the code and documentation for the Capstone Project of Dámaris Flores Albores, completed in April 2023 as part of an apprenticeship program. The project involves evaluating business needs, data exploration, analysis, and modeling using regression and classification techniques.
 
@@ -48,7 +52,8 @@ The project follows the following steps:
 
 8. Further Analysis: Explore additional approaches and provide suggestions for next steps in the analysis.
 
-### Getting Started
+
+### Let's Get Started!! 
 
 
 ## Business Understanding
@@ -59,24 +64,21 @@ The purpose of this project is to develop a predictive model for income based on
 
 This dataset contains 396,629 entries and 114 columns, fully encoded. The desicion was to choose a maximum of 15 features to work with.
 
-| NOMBRE_CAMPO | LONGITUD | TIPO | NEMÓNICO | CATÁLOGO | RANGO_CLAVES |
-|--------------|----------|------|----------|----------|--------------|
-| 10           | Entidad | 2 | C | ent | ent | [01-32] |
-| 23           | Pregunta 8 Sexo | 1 | C | sex | sex | 1,2 |
-| 24           | Pregunta 9 Edad | 2 | C | eda | eda | 00-99 |
-| 29           | Pregunta 12 ¿Sabe leer y escribir un recado...? | 1 | C | cs_p12 | cs_p12 | 1-2,9 |
-| 30           | Pregunta 13 ¿Hasta qué año aprobó... en la esc...? | 2 | C | cs_p13_1 | cs_p13_1 | 00-09,99 |
-| 32           | Pregunta 14 Clave de la carrera | 6 | C | cs_p14_c | cs_p14_c | Catálogo CMPE (carreras) |
-| 36           | Pregunta 18 En total cuántas hijas e hijos que... | 2 | C | n_hij | NaN | 00-25,99 |
-| 37           | Pregunta 19 Estado conyugal | 1 | C | e_con | e_con | 1-6,9 |
-| 49           | Urbano/Rural | 1 | N | ur | ur | [1-2] |
-| 50           | Zona salarial | 1 | N | zona | zona | [1-2] |
-| 54           | Clasificación de la población en PEA y PNEA | 1 | N | clase1 | clase1 | [1-2] |
-| 57           | Clasificación de la población ocupada por posi... | 1 | N | pos_ocu | pos_ocu | [1-5] |
-| 59           | Clasificación de la población ocupada por sect... | 1 | N | rama | rama | [1-7] |
-| 61           | Clasificación de la población ocupada por nive... | 1 | N | ing7c | ing7c | [1-7] |
-| 94           | Años de escolaridad | 2 | N | anios_esc | anios_esc | 1-24,99 |
-| 96           | Ingreso mensual | 6 | N | ingocup | NaN | 1-999998 |
+The features were: 
+
+1.- *Residence* - categorical   
+2.- *Gender* - categorical  
+3.- *Age* - numerical  
+4.- *Literacy* - categorical  
+5.- *Scholarship*  - categorical  
+6.- *Career*  - categorical  
+7.- *Marital Status*  - categorical  
+8.- *Urban or Rural*  - categorical  
+9.- *Income Zone*  - categorical  
+10.- *Occupied Population by Position*  - categorical  
+11.- *Occupied Population by Economic Sector*  - categorical  
+12.- *Occupied Population by Income Level*  - categorical  
+13.- *Monthly Income* - numerical       
 
 ## Data Preparation
 
@@ -97,21 +99,28 @@ This is an example of the result:
 ## Modeling 
 
 We try 3 different approaches for modeling. 
+Before initiating any model we had to convert categorical values and normalize our data. Also, for the second and third approach it was necessary to create a new colmn with our target. 
+
+### Regression Approach
 
 The first one was a regression approach by implementing a regression tree model. 
 However the model wasn't able to explain more than a 18% of our dataset.
 
+### Classification Approach
+
 The second was a decission classification tree, for this approach was necesary to create a new categorical column that would function as target. For starts we create 10 levels of income.
 This approach only reached a 40.04% of accuracy. 
 
+
+### Classification Approach with Label Re-Architecture
+
 The third and final approach was a classification tree with only 3 labels.  
-After tuning an bagging it was possible to reach a 67.83% of accuracy with the followring results: 
+After tuning an bagging it was possible to reach a 67.83% of accuracy with the following results: 
 
- Train score
-0.6830281570407386
+#### Train score : 0.6830281570407386
 
-Test score
-0.678309271949083
+#### Test score: 0.678309271949083
+
 
 | Class   | Precision | Recall | F1-Score | Support |
 |---------|-----------|--------|----------|---------|
@@ -125,6 +134,13 @@ Weighted Average F1-Score: 0.61
 
 Testing Accuracy for Bagging Tree Classifier: 67.83%
 
+## Further Analysis
+
+By reviewing the feature importance of our model we discovered that gender is a feature that seems to have a main importance, being the second most important feauture for our tree to determine Income Level. We could also observed the correlation between gender and monthly income and notice that when the income rises the gender inbalance is higher. 
+
+We could keep exploring it and even create a logistic regression model to predict gender based on incomes and other features, but because of our limited time resource and purpose of this project we won't do it.
+
+
 ## Next Steps
 
 After looking at our results the next steps will be to try to achieve more accuracy and granularity. 3 levels of income seems not enough due to the distribution of our data. However it seems that our features are not helping us to gain more accuracy, meaning that:  
@@ -134,7 +150,6 @@ After looking at our results the next steps will be to try to achieve more accur
 3.- Keep with optimization.   
 3.- Try other models.  
 
-Also, as we saw at the end of our model exploration, gender is a feature that seems to have a main importance at our model, we could keep exploring it and even create a logistic regression model to predict gender based on incomes and other features.
 
 ## Thank you!
 
